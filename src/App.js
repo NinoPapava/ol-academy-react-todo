@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
-import './App.css';
+import React from 'react';
+import { TodoWrapper } from './components/TodoWrapper';
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
-      <div className="App"></div>
+      <div className="App">
+        <TodoWrapper />
+      </div>
     );
   }
 }
