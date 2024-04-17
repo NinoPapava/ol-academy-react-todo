@@ -19,16 +19,15 @@ class TodoList extends React.Component {
   };
 
 
-
   render() {
-    const { tasks } = this.props;
+    const { tasks, onTaskMarked } = this.props;
     const { editIndex, newTaskName, errorMessage } = this.state;
     return (
       <div className="todo-list">
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         <ul>
           {tasks.map((task, index) => (
-            <li key={task.name}>
+            <li key={task.name} style={{ textDecoration: task.isDone ? 'line-through' : 'none', color: task.isDone ? 'red' : 'black' }}>
               {editIndex === index ? (
                 <>
                   <input type="text" value={newTaskName} onChange={(e) => this.setState({ newTaskName: e.target.value })} />
@@ -36,6 +35,7 @@ class TodoList extends React.Component {
               ) : (
                 <>
                   {task.name}
+                  <button onClick={() => onTaskMarked(task.name)}>Mark as Done</button>
                 </>
               )}
             </li>

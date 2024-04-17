@@ -26,6 +26,20 @@ class TodoWrapper extends Component {
     }
   }
 
+  handleTaskMarked = (taskName) => {
+    const { tasks } = this.state;
+    const updatedTasks = tasks.map(task => (
+      task.name === taskName ? { ...task, isDone: !task.isDone } : task
+    ));
+    this.setState({ tasks: updatedTasks });
+  }
+
+  handleDeleteTask = (taskName) => {
+    const { tasks } = this.state;
+    const updatedTasks = tasks.filter(task => task.name !== taskName);
+    this.setState({ tasks: updatedTasks });
+  }
+
 
   render() {
     const { tasks, errorMessage } = this.state;
@@ -36,7 +50,9 @@ class TodoWrapper extends Component {
         <TodoList
           tasks={tasks}
           errorMessage={errorMessage}
+          onTaskMarked={this.handleTaskMarked}
         />
+        <button onClick={() => this.setState({ tasks: tasks.filter(task => !task.isDone) })}>Delete Marked Tasks</button>
       </div>
     );
   }
