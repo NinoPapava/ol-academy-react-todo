@@ -7,7 +7,8 @@ class TodoWrapper extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: []
+      tasks: [],
+      errorMessage: ''
     };
   }
 
@@ -27,12 +28,15 @@ class TodoWrapper extends Component {
 
 
   render() {
-    const { tasks } = this.state;
+    const { tasks, errorMessage } = this.state;
     return (
       <div className="todo-wrapper">
         <h1>Ol Academy Todo List</h1>
-        <AddTodo onAddTask={this.handleAddTask}  tasks={tasks}  />
-        <TodoList tasks={tasks} />
+        <AddTodo onAddTask={this.handleAddTask} tasks={tasks} />
+        <TodoList
+          tasks={tasks}
+          errorMessage={errorMessage}
+        />
       </div>
     );
   }

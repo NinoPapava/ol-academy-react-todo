@@ -4,9 +4,15 @@ class AddTodo extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      taskName: ''
+      taskName: '',
+      errorMessage: ''
     };
   }
+
+  
+  handleClearError = () => {
+    this.setState({ errorMessage: '' });
+  };
 
   handleChange = (e) => {
     this.setState({ taskName: e.target.value });
@@ -28,10 +34,10 @@ class AddTodo extends React.Component {
     }
   };
 
-  
+
 
   render () {
-    const { taskName } = this.state;
+    const { taskName, errorMessage } = this.state;
     return (
       <div className="add-todo">
         <input
@@ -41,6 +47,7 @@ class AddTodo extends React.Component {
           placeholder="Enter task name"
         />
         <button onClick={this.handleSubmit}>Add Task</button>
+        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
       </div>
     );
   }

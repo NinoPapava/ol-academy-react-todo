@@ -7,6 +7,7 @@ class TodoList extends React.Component {
       editIndex: -1,
       newTaskName: '',
       taskIndexes: [],
+      errorMessage: ''
     };
   }
 
@@ -17,13 +18,14 @@ class TodoList extends React.Component {
     this.setState({ taskIndexes: updatedTaskIndexes });
   };
 
-  
+
 
   render() {
     const { tasks } = this.props;
-    const { editIndex, newTaskName } = this.state;
+    const { editIndex, newTaskName, errorMessage } = this.state;
     return (
       <div className="todo-list">
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         <ul>
           {tasks.map((task, index) => (
             <li key={task.name}>
