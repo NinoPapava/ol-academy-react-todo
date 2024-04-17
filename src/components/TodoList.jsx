@@ -49,6 +49,13 @@ class TodoList extends React.Component {
     this.setState({ editIndex: -1, newTaskName: '', errorMessage: '' });
   };
 
+  handleSaveTask = () => {
+    const { editIndex, newTaskName } = this.state;
+    const { tasks } = this.props;
+    this.props.onEditTask(tasks[editIndex].name, newTaskName);
+    this.setState({ editIndex: -1, newTaskName: '', errorMessage: '' });
+  };
+
 
   render() {
     const { tasks, onDeleteTask, onTaskMarked } = this.props;
@@ -62,6 +69,7 @@ class TodoList extends React.Component {
               {editIndex === index ? (
                 <>
                   <input type="text" value={newTaskName} onChange={(e) => this.setState({ newTaskName: e.target.value })} />
+                  <button onClick={this.handleSaveTask}>Save</button>
                   <button onClick={this.handleCancelEdit}>Cancel</button>
                 </>
               ) : (
