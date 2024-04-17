@@ -68,6 +68,7 @@ class TodoWrapper extends Component {
           onMoveTask={this.handleMoveTask}
         />
         <button onClick={() => this.setState({ tasks: tasks.filter(task => !task.isDone) })}>Delete Marked Tasks</button>
+        <button onClick={() => this.setState({ tasks: [] })}>Delete All Tasks</button>
       </div>
     );
   }
