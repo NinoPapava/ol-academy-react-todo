@@ -18,9 +18,13 @@ class TodoList extends React.Component {
     this.setState({ taskIndexes: updatedTaskIndexes });
   };
 
+  handleEditTask = (index, taskName) => {
+    this.setState({ editIndex: index, newTaskName: taskName, errorMessage: '' });
+  };
+
 
   render() {
-    const { tasks, onTaskMarked } = this.props;
+    const { tasks, onDeleteTask, onTaskMarked } = this.props;
     const { editIndex, newTaskName, errorMessage } = this.state;
     return (
       <div className="todo-list">
@@ -36,6 +40,8 @@ class TodoList extends React.Component {
                 <>
                   {task.name}
                   <button onClick={() => onTaskMarked(task.name)}>Mark as Done</button>
+                  <button onClick={() => this.handleEditTask(index, task.name)}>Edit</button>
+                  <button onClick={() => onDeleteTask(task.name)}>Delete</button>
                 </>
               )}
             </li>
