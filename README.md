@@ -1,3 +1,15 @@
+ ## OL Academy Todo App
+
+![TodoApp](https://github.com/NinoPapava/ol-academy-react-todo/assets/99906660/05591ba2-bfdf-4185-84a7-b5fd74449841)
+
+
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
