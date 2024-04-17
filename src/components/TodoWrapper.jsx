@@ -11,12 +11,14 @@ class TodoWrapper extends Component {
     };
   }
 
+
   render() {
+    const { tasks } = this.state;
     return (
       <div className="todo-wrapper">
         <h1>Ol Academy Todo List</h1>
-        <AddTodo />
-        <TodoList />
+        <AddTodo  tasks={tasks}  />
+        <TodoList tasks={tasks} />
       </div>
     );
   }
