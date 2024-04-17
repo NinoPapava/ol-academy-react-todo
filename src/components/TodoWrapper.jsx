@@ -48,6 +48,10 @@ class TodoWrapper extends Component {
     this.setState({ tasks: updatedTasks });
   };
 
+  handleMoveTask = (updatedTasks) => {
+    this.setState({ tasks: updatedTasks, errorMessage: '' });
+  };
+
 
   render() {
     const { tasks, errorMessage } = this.state;
@@ -61,6 +65,7 @@ class TodoWrapper extends Component {
           onDeleteTask={this.handleDeleteTask}
           onTaskMarked={this.handleTaskMarked}
           onEditTask={this.handleEditTask}
+          onMoveTask={this.handleMoveTask}
         />
         <button onClick={() => this.setState({ tasks: tasks.filter(task => !task.isDone) })}>Delete Marked Tasks</button>
       </div>
