@@ -11,13 +11,27 @@ class TodoWrapper extends Component {
     };
   }
 
+  handleAddTask = (taskName) => {
+    const { tasks } = this.state;
+    if (taskName.trim() !== '') {
+      const existingTask = tasks.filter(task => task.name === taskName);
+      if (existingTask.length > 0) {
+        this.setState({ errorMessage: 'A task with this name already exists.' });
+      } else {
+        this.setState({ tasks: [...tasks, { name: taskName, isDone: false }], errorMessage: '' });
+      }
+    } else {
+      this.setState({ errorMessage: 'Task name cannot be empty.' });
+    }
+  }
+
 
   render() {
     const { tasks } = this.state;
     return (
       <div className="todo-wrapper">
         <h1>Ol Academy Todo List</h1>
-        <AddTodo  tasks={tasks}  />
+        <AddTodo onAddTask={this.handleAddTask}  tasks={tasks}  />
         <TodoList tasks={tasks} />
       </div>
     );

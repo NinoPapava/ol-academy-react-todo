@@ -10,6 +10,15 @@ class TodoList extends React.Component {
     };
   }
 
+  handleChange = (e, index) => {
+    const { taskIndexes } = this.state;
+    const updatedTaskIndexes = [...taskIndexes];
+    updatedTaskIndexes[index] = e.target.value;
+    this.setState({ taskIndexes: updatedTaskIndexes });
+  };
+
+  
+
   render() {
     const { tasks } = this.props;
     const { editIndex, newTaskName } = this.state;
