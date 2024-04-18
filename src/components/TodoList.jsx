@@ -11,6 +11,7 @@ class TodoList extends React.Component {
     };
   }
 
+
   handleChange = (e, index) => {
     const { taskIndexes } = this.state;
     const updatedTaskIndexes = [...taskIndexes];
@@ -58,15 +59,14 @@ class TodoList extends React.Component {
 
 
   render() {
-    const { tasks, onDeleteTask, onTaskMarked } = this.props;
+    const { tasks, onDeleteTask, onTaskMarked, onTaskChecked } = this.props;
     const { editIndex, newTaskName, errorMessage } = this.state;
     return (
       <div className="todo-list">
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         <ul>
           {tasks.map((task, index) => (
-            <li key={task.name} style={{ textDecoration: task.isDone ? 'line-through' : 'none', color: task.isDone ? 'red' : 'black' }}>
-            <input type="checkbox" checked={task.isDone} onChange={() => onTaskMarked(task.name)} />
+            <li key={task.name} style={{ textDecoration: task.isToggle ? 'line-through' : 'none', color: task.isToggle ? 'red' : 'black' }}>
               {editIndex === index ? (
                 <>
                   <input type="text" value={newTaskName} onChange={(e) => this.setState({ newTaskName: e.target.value })} />
@@ -75,6 +75,7 @@ class TodoList extends React.Component {
                 </>
               ) : (
                 <>
+                  <input type='checkbox' onClick={() => onTaskChecked(task.name)} />
                   {task.name}
                   <button onClick={() => onTaskMarked(task.name)}>Mark as Done</button>
                   <button onClick={() => this.handleEditTask(index, task.name)}>Edit</button>

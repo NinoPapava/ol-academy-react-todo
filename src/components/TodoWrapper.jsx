@@ -19,7 +19,7 @@ class TodoWrapper extends Component {
       if (existingTask.length > 0) {
         this.setState({ errorMessage: 'A task with this name already exists.' });
       } else {
-        this.setState({ tasks: [...tasks, { name: taskName, isDone: false }], errorMessage: '' });
+        this.setState({ tasks: [...tasks, { name: taskName, isDone: false, isToggle: false }], errorMessage: '' });
       }
     } else {
       this.setState({ errorMessage: 'Task name cannot be empty.' });
@@ -33,6 +33,15 @@ class TodoWrapper extends Component {
     ));
     this.setState({ tasks: updatedTasks });
   }
+
+  handleTaskChecked = (taskName) => {
+    const { tasks } = this.state;
+    const updatedTasks = tasks.map(task => (
+      task.name === taskName ? { ...task, isToggle: !task.isToggle } : task
+    ));
+    this.setState({ tasks: updatedTasks });
+  }
+
 
   handleDeleteTask = (taskName) => {
     const { tasks } = this.state;
@@ -64,6 +73,7 @@ class TodoWrapper extends Component {
           errorMessage={errorMessage}
           onDeleteTask={this.handleDeleteTask}
           onTaskMarked={this.handleTaskMarked}
+          onTaskChecked={this.handleTaskChecked}
           onEditTask={this.handleEditTask}
           onMoveTask={this.handleMoveTask}
         />
