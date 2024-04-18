@@ -66,7 +66,7 @@ class TodoList extends React.Component {
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         <ul>
           {tasks.map((task, index) => (
-            <li key={task.name} style={{ textDecoration: task.isToggle ? 'line-through' : 'none', color: task.isToggle ? 'red' : 'black' }}>
+            <li key={task.name} style={{ textDecoration: task.isDone ? 'line-through' : 'none', color: task.isDone ? 'red' : 'black' }}>
               {editIndex === index ? (
                 <>
                   <input type="text" value={newTaskName} onChange={(e) => this.setState({ newTaskName: e.target.value })} />
