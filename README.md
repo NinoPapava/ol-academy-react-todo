@@ -1,6 +1,6 @@
  ## OL Academy Todo App
 
-![TodoApp](https://github.com/NinoPapava/ol-academy-react-todo/assets/99906660/05591ba2-bfdf-4185-84a7-b5fd74449841)
+![newProk](https://github.com/NinoPapava/ol-academy-react-todo/assets/99906660/fddfc3dc-dae3-4870-a7cb-5f24f92d671e)
 
 
 
