@@ -37,7 +37,7 @@ class TodoWrapper extends Component {
   handleTaskChecked = (taskName) => {
     const { tasks } = this.state;
     const updatedTasks = tasks.map(task => (
-      task.name === taskName ? { ...task, isToggle: !task.isToggle } : task
+      task.name === taskName ? { ...task, isChecked: !task.isChecked } : task
     ));
     this.setState({ tasks: updatedTasks });
   }
@@ -78,6 +78,7 @@ class TodoWrapper extends Component {
           onMoveTask={this.handleMoveTask}
         />
         <button onClick={() => this.setState({ tasks: tasks.filter(task => !task.isDone) })}>Delete Marked Tasks</button>
+        <button onClick={() => this.setState({ tasks: tasks.filter(task => !task.isChecked) })}>Delete Checked Tasks</button>
         <button onClick={() => this.setState({ tasks: [] })}>Delete All Tasks</button>
       </div>
     );
