@@ -4,27 +4,22 @@ class TodoList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      editIndex: -1,
       newTaskName: '',
-      taskIndexes: [],
       errorMessage: ''
     };
   }
 
 
-  handleChange = (e, index) => {
-    const { taskIndexes } = this.state;
-    const updatedTaskIndexes = [...taskIndexes];
-    updatedTaskIndexes[index] = e.target.value;
-    this.setState({ taskIndexes: updatedTaskIndexes });
-  };
-
   handleEditTask = (index, taskName) => {
-    this.setState({ editIndex: index, newTaskName: taskName, errorMessage: '' });
-  };
+    const { changeEditMode } = this.props
+    this.setState({ newTaskName: taskName, errorMessage: '' });
+    changeEditMode(index)
+  }
+
+
   handleMoveUp = (index) => {
     const { tasks } = this.props;
-    this.setState({ errorMessage: '' }); // Clear error message
+    this.setState({ errorMessage: '' });
     if (index > 0) {
       const updatedTasks = [...tasks];
       const temp = updatedTasks[index];
@@ -36,7 +31,7 @@ class TodoList extends React.Component {
 
   handleMoveDown = (index) => {
     const { tasks } = this.props;
-    this.setState({ errorMessage: '' }); // Clear error message
+    this.setState({ errorMessage: '' });
     if (index < tasks.length - 1) {
       const updatedTasks = [...tasks];
       const temp = updatedTasks[index];
@@ -46,36 +41,37 @@ class TodoList extends React.Component {
     }
   };
 
-  handleCancelEdit = () => {
-    this.setState({ editIndex: -1, newTaskName: '', errorMessage: '' });
+  handleCancelEdit = (index) => {
+    const { changeEditMode } = this.props
+    this.setState({ newTaskName: '', errorMessage: '' });
+    changeEditMode(index)
   };
 
-  handleSaveTask = () => {
-    const { editIndex, newTaskName } = this.state;
-    const { tasks } = this.props;
-    this.props.onEditTask(tasks[editIndex].name, newTaskName);
-    this.setState({ editIndex: -1, newTaskName: '', errorMessage: '' });
+  handleSaveTask = (task) => {
+    const { newTaskName } = this.state;
+    this.props.onEditTask(task.name, newTaskName);
+    this.setState({ newTaskName: '', errorMessage: '' });
   };
 
 
   render() {
     const { tasks, onDeleteTask, onTaskMarked, onTaskChecked } = this.props;
-    const { editIndex, newTaskName, errorMessage } = this.state;
+    const { newTaskName, errorMessage } = this.state;
     return (
       <div className="todo-list">
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         <ul>
           {tasks.map((task, index) => (
             <li key={task.name} style={{ textDecoration: task.isDone ? 'line-through' : 'none', color: task.isDone ? 'red' : 'black' }}>
-              {editIndex === index ? (
+              {task.editMode ? (
                 <>
                   <input type="text" value={newTaskName} onChange={(e) => this.setState({ newTaskName: e.target.value })} />
-                  <button onClick={this.handleSaveTask}>Save</button>
-                  <button onClick={this.handleCancelEdit}>Cancel</button>
+                  <button onClick={() => this.handleSaveTask(task)}>Save</button>
+                  <button onClick={() => this.handleCancelEdit(index)}>Cancel</button>
                 </>
               ) : (
                 <>
-                  <input type='checkbox' onClick={() => onTaskChecked(task.name)} />
+                  <input type='checkbox' checked={task.isToggle} onChange={() => onTaskChecked(task.name)} />
                   {task.name}
                   <button onClick={() => onTaskMarked(task.name)}>Done</button>
                   <button onClick={() => this.handleEditTask(index, task.name)}>Edit</button>

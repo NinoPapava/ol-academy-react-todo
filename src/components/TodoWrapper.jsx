@@ -19,7 +19,7 @@ class TodoWrapper extends Component {
       if (existingTask.length > 0) {
         this.setState({ errorMessage: 'A task with this name already exists.' });
       } else {
-        this.setState({ tasks: [...tasks, { name: taskName, isDone: false, isToggle: false }], errorMessage: '' });
+        this.setState({ tasks: [...tasks, { name: taskName, isDone: false, isToggle: false, editMode: false }], errorMessage: '' });
       }
     } else {
       this.setState({ errorMessage: 'Task name cannot be empty.' });
@@ -52,7 +52,7 @@ class TodoWrapper extends Component {
   handleEditTask = (oldTaskName, newTaskName) => {
     const { tasks } = this.state;
     const updatedTasks = tasks.map(task =>
-      task.name === oldTaskName ? { ...task, name: newTaskName } : task
+      task.name === oldTaskName ? { ...task, name: newTaskName, editMode:false } : task
     );
     this.setState({ tasks: updatedTasks });
   };
@@ -60,6 +60,14 @@ class TodoWrapper extends Component {
   handleMoveTask = (updatedTasks) => {
     this.setState({ tasks: updatedTasks, errorMessage: '' });
   };
+
+  changeEditMode = (index) => {
+    const { tasks } = this.state;
+    const updatedTasks = tasks.map((task, taskIndex) => (
+        index === taskIndex ? { ...task, editMode: !task.editMode } : task
+    ));
+    this.setState({ tasks: updatedTasks });
+  }
 
 
   render() {
@@ -76,6 +84,7 @@ class TodoWrapper extends Component {
           onTaskChecked={this.handleTaskChecked}
           onEditTask={this.handleEditTask}
           onMoveTask={this.handleMoveTask}
+          changeEditMode={this.changeEditMode}
         />
         <button onClick={() => this.setState({ tasks: tasks.filter(task => !task.isDone) })}>Delete Done Tasks</button>
         <button onClick={() => this.setState({ tasks: tasks.filter(task => !task.isChecked) })}>Delete Checked Tasks</button>
