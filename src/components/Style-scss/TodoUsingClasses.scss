@@ -1,0 +1,91 @@
+$primary-color: #4CAF50;
+$primary-hover-color: #45a049;
+$secondary-color: #f44336;
+$secondary-hover-color: #d32f2f;
+$border-color: #ccc;
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.todo-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+}
+
+.add-todo {
+  margin-bottom: 20px;
+
+  input[type="text"] {
+    padding: 8px;
+    width: 70%;
+    margin-right: 10px;
+    border: 1px solid $border-color;
+  }
+
+  button {
+    padding: 8px 16px;
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $primary-hover-color;
+    }
+  }
+}
+
+.todo-list {
+  border: 1px solid $border-color;
+  padding: 10px;
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    margin-bottom: 10px;
+  }
+
+  button {
+    padding: 4px 8px;
+    margin-left: 5px;
+    background-color: $secondary-color;
+    color: white;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $secondary-hover-color;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .add-todo {
+    input[type="text"] {
+      width: 60%;
+    }
+
+    button {
+      width: 30%;
+    }
+  }
+
+  .todo-list {
+    button {
+      width: 30%;
+    }
+  }
+} 
+

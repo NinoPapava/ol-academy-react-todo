@@ -71,7 +71,7 @@ class TodoList extends React.Component {
                 </>
               ) : (
                 <>
-                  <input type='checkbox' checked={task.isToggle} onChange={() => onTaskChecked(task.name)} />
+                  <input type='checkbox' checked={task.isChecked} onChange={() => onTaskChecked(task.name)} />
                   {task.name}
                   <button onClick={() => onTaskMarked(task.name)}>Done</button>
                   <button onClick={() => this.handleEditTask(index, task.name)}>Edit</button>

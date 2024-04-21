@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { TodoList } from './TodoList';
 import { AddTodo } from './AddTodo';
-import './Todo.css';
+import '../Style-scss/TodoUsingClasses.scss';
 
 class TodoWrapper extends Component {
   constructor(props) {
