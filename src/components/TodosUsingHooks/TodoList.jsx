@@ -20,6 +20,10 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage }) =>
     ));
   }
 
+  const handleDelete = ({ id }) => {
+    setTodoItems(todoItems.filter(item => item.id !== id));
+  }
+
   return (
     <div className="todo-list">
     {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
@@ -34,6 +38,7 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage }) =>
             <input type='checkbox' checked={item.isChecked} onChange={() => handleItemChecked(item.id)} />
               {item.name}
               <button className='button-isComplete' onClick={() => handleToggleComplete(item.id)}>Complete</button>
+              <button className='button-edit' onClick={() => handleDelete(item)}>Delete</button>
             </>
           )}
         </li>
