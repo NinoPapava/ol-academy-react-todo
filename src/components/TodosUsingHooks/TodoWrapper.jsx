@@ -9,6 +9,10 @@ const TodoWrapper = () => {
   const [inputValue, setInputValue] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
 
+  const handleDeleteCompleteItems = () => {
+    setTodoItems(todoItems.filter(item => !item.isDone));
+  }
+
   return (
     <div className="todo-wrapper">
     <h1>Ol Academy Todo List</h1>
@@ -25,6 +29,7 @@ const TodoWrapper = () => {
         setTodoItems={setTodoItems}
         setErrorMessage={setErrorMessage}
       />
+      <button className='button-deleteComplete' onClick={handleDeleteCompleteItems} >Delete Complete Items</button>
     </div>
   );
 }
