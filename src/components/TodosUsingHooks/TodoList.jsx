@@ -46,17 +46,30 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage }) =>
     }
   }
 
-  const handleEditing = () => {
-
+  const handleEditing = (item) => {
+    setErrorMessage("");
+    setTodoItems(todoItems.map(todo => {
+      if (todo.id === item.id) {
+        return { ...todo, editMode: !todo.editMode };
+      } else {
+        return todo;
+      }
+    }));
   }
   const handleSaveEditItem = () => {
 
   }
 
-  const handleCancelEdit = () => {
-
+  const handleCancelEdit = (item) => {
+    setErrorMessage("");
+    setTodoItems(todoItems.map(todo => {
+      if (todo.id === item.id) {
+        todo.editMode = false;
+      }
+      return todo;
+    }));
   }
-  
+
 
   return (
     <div className="todo-list">
