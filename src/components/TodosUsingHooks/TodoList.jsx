@@ -98,6 +98,7 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage }) =>
   return (
     <div className="todo-list">
     {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+    <ul>
       {todoItems.map((item) => (
         <li className='list-item' key={item.id} style={{ textDecoration: item.isDone ? 'line-through' : 'none', color: item.isDone ? 'red' : 'black' }}>
           {item.editMode ? (
@@ -120,6 +121,7 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage }) =>
         </li>
       )
       )}
+      </ul>
     </div>
   );
 }

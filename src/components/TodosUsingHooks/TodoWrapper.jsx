@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TodoList } from './TodoList';
 import { AddTodo } from './AddTodo';
+import '../Style-scss/TodoUsingHooks.scss';
 
 
 const TodoWrapper = () => {
