@@ -56,7 +56,20 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage }) =>
       }
     }));
   }
-  const handleSaveEditItem = () => {
+  const handleSaveEditItem = (item) => {
+    const trimmedValue = item.name.trim();
+
+    if (trimmedValue === "") {
+      setErrorMessage("empty field.");
+      return;
+
+    } else if (todoItems.some(todo => todo.name !== trimmedValue)) {
+      setErrorMessage("It's the same name.");
+      return;
+
+    } else {
+      setTodoItems([{ ...item, ...todoItems, name: trimmedValue, editMode: false }]);
+    }
 
   }
 
@@ -70,6 +83,17 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage }) =>
     }));
   }
 
+  const handleEditInputChange = (e, item) => {
+    setTodoItems(todoItems.map(todo => {
+      if (todo.id === item.id) {
+        return { ...todo, name: e.target.value };
+      } else {
+        return todo;
+      }
+    }));
+    setErrorMessage("");
+  };
+
 
   return (
     <div className="todo-list">
@@ -78,7 +102,7 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage }) =>
         <li className='list-item' key={item.id} style={{ textDecoration: item.isDone ? 'line-through' : 'none', color: item.isDone ? 'red' : 'black' }}>
           {item.editMode ? (
             <>
-              <input type='text' value={item.name} className='list' onChange={(e) => "handleEditInputChange"(e, item)} />
+              <input type='text' value={item.name} className='list' onChange={(e) => handleEditInputChange(e, item)} />
               <button className='button-save' onClick={() => handleSaveEditItem(item)}>Save</button>
               <button className='button-cancel' onClick={() => handleCancelEdit(item)}>Cancel</button>
             </>
