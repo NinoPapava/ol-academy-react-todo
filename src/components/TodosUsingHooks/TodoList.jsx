@@ -24,6 +24,28 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage }) =>
     setTodoItems(todoItems.filter(item => item.id !== id));
   }
 
+  const handleMoveUp = (item) => {
+    const index = todoItems.findIndex(todo => todo.id === item.id);
+    if (index > 0) {
+      const newArray = [...todoItems];
+      const arrInd = newArray[index];
+      newArray[index] = newArray[index - 1];
+      newArray[index - 1] = arrInd;
+      setTodoItems(newArray);
+    }
+  }
+
+  const handleMoveDown = (item) => {
+    const index = todoItems.findIndex(todo => todo.id === item.id);
+    if (index < todoItems.length - 1) {
+      const newArray = [...todoItems];
+      const arrInd = newArray[index];
+      newArray[index] = newArray[index + 1];
+      newArray[index + 1] = arrInd;
+      setTodoItems(newArray);
+    }
+  }
+
   return (
     <div className="todo-list">
     {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
@@ -38,6 +60,8 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage }) =>
             <input type='checkbox' checked={item.isChecked} onChange={() => handleItemChecked(item.id)} />
               {item.name}
               <button className='button-isComplete' onClick={() => handleToggleComplete(item.id)}>Complete</button>
+              <button className='button-up' onClick={() => handleMoveUp(item)}>Up</button>
+              <button className='button-down' onClick={() => handleMoveDown(item)}>Down</button>
               <button className='button-edit' onClick={() => handleDelete(item)}>Delete</button>
             </>
           )}
