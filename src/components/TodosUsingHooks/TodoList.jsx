@@ -13,6 +13,13 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage }) =>
     setTodoItems(updatedTodoItems);
   }
 
+  const handleItemChecked = (id) => {
+    setErrorMessage("");
+    setTodoItems(todoItems.map(item =>
+      item.id === id ? { ...item, isChecked: !item.isChecked } : item
+    ));
+  }
+
   return (
     <div className="todo-list">
     {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
@@ -24,6 +31,7 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage }) =>
             </>
           ) : (
             <>
+            <input type='checkbox' checked={item.isChecked} onChange={() => handleItemChecked(item.id)} />
               {item.name}
               <button className='button-isComplete' onClick={() => handleToggleComplete(item.id)}>Complete</button>
             </>

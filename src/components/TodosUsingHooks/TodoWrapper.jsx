@@ -13,6 +13,10 @@ const TodoWrapper = () => {
     setTodoItems(todoItems.filter(item => !item.isDone));
   }
 
+  const handleDeleteCheckedItems = () => {
+    setTodoItems(todoItems.filter(item => !item.isChecked));
+  }
+
   return (
     <div className="todo-wrapper">
     <h1>Ol Academy Todo List</h1>
@@ -30,6 +34,7 @@ const TodoWrapper = () => {
         setErrorMessage={setErrorMessage}
       />
       <button className='button-deleteComplete' onClick={handleDeleteCompleteItems} >Delete Complete Items</button>
+      <button className='button-deleteChecked' onClick={handleDeleteCheckedItems} >Delete Checked Items</button>
     </div>
   );
 }
