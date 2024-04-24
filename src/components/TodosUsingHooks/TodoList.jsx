@@ -46,6 +46,18 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage }) =>
     }
   }
 
+  const handleEditing = () => {
+
+  }
+  const handleSaveEditItem = () => {
+
+  }
+
+  const handleCancelEdit = () => {
+
+  }
+  
+
   return (
     <div className="todo-list">
     {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
@@ -54,12 +66,15 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage }) =>
           {item.editMode ? (
             <>
               <input type='text' value={item.name} className='list' onChange={(e) => "handleEditInputChange"(e, item)} />
+              <button className='button-save' onClick={() => handleSaveEditItem(item)}>Save</button>
+              <button className='button-cancel' onClick={() => handleCancelEdit(item)}>Cancel</button>
             </>
           ) : (
             <>
             <input type='checkbox' checked={item.isChecked} onChange={() => handleItemChecked(item.id)} />
               {item.name}
               <button className='button-isComplete' onClick={() => handleToggleComplete(item.id)}>Complete</button>
+              <button className='button-delete' onClick={() => handleEditing(item)}>Edit</button>
               <button className='button-up' onClick={() => handleMoveUp(item)}>Up</button>
               <button className='button-down' onClick={() => handleMoveDown(item)}>Down</button>
               <button className='button-edit' onClick={() => handleDelete(item)}>Delete</button>
