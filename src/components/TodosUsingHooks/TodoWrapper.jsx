@@ -15,10 +15,11 @@ const TodoWrapper = () => {
         inputValue={inputValue}
         setInputValue={setInputValue}
         todoItems={todoItems}
+        setTodoItems={setTodoItems}
       />
       <TodoList
         todoItems={todoItems}
-
+        setTodoItems={setTodoItems}
       />
     </div>
   );

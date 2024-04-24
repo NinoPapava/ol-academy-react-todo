@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TodoList = ({ todoItems }) => {
+const TodoList = ({ todoItems, setTodoItems }) => {
 
   return (
     <div className="todo-list">

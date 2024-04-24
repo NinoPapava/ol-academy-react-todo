@@ -1,9 +1,28 @@
+import { v4 as uuidv4 } from 'uuid';
 
-const AddTodo = ({ inputValue, setInputValue}) => {
+
+const AddTodo = ({ inputValue, setInputValue, todoItems, setTodoItems}) => {
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   }
+
+  const handleSubmitTodo = () => {
+
+    if (inputValue.trim() === "") {
+      // for err
+    }
+    const existingTask = todoItems.filter(item => item.name === inputValue);
+    if (existingTask.length > 0) {
+      //
+    }
+    setTodoItems([
+      ...todoItems,
+      { id: uuidv4(), name: inputValue, isChecked: false, editMode: false },
+    ]);
+    setInputValue("");
+  }
+
 
 
   return (
@@ -16,6 +35,7 @@ const AddTodo = ({ inputValue, setInputValue}) => {
         required
         onChange={handleInputChange}
       />
+      <button onClick={handleSubmitTodo}>Add</button>
     </div>
   );
 }
