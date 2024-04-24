@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 
-const AddTodo = ({ inputValue, setInputValue, todoItems, setTodoItems}) => {
+const AddTodo = ({ inputValue, setInputValue, todoItems, setTodoItems, errorMessage, setErrorMessage}) => {
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -10,17 +10,20 @@ const AddTodo = ({ inputValue, setInputValue, todoItems, setTodoItems}) => {
   const handleSubmitTodo = () => {
 
     if (inputValue.trim() === "") {
-      // for err
+      setErrorMessage("The field cannot be empty.");
+      return;
     }
     const existingTask = todoItems.filter(item => item.name === inputValue);
     if (existingTask.length > 0) {
-      //
+      setErrorMessage("Account with this name already exists.");
+      return;
     }
     setTodoItems([
       ...todoItems,
       { id: uuidv4(), name: inputValue, isChecked: false, editMode: false },
     ]);
     setInputValue("");
+    setErrorMessage("");
   }
 
 
@@ -36,6 +39,7 @@ const AddTodo = ({ inputValue, setInputValue, todoItems, setTodoItems}) => {
         onChange={handleInputChange}
       />
       <button onClick={handleSubmitTodo}>Add</button>
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
     </div>
   );
 }

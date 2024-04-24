@@ -7,6 +7,7 @@ const TodoWrapper = () => {
 
   const [todoItems, setTodoItems] = useState([])
   const [inputValue, setInputValue] = useState("")
+  const [errorMessage, setErrorMessage] = useState("")
 
   return (
     <div className="todo-wrapper">
@@ -16,10 +17,13 @@ const TodoWrapper = () => {
         setInputValue={setInputValue}
         todoItems={todoItems}
         setTodoItems={setTodoItems}
+        errorMessage={errorMessage}
+        setErrorMessage={setErrorMessage}
       />
       <TodoList
         todoItems={todoItems}
         setTodoItems={setTodoItems}
+        setErrorMessage={setErrorMessage}
       />
     </div>
   );
