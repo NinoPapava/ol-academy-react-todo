@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage, inputValue, setInputValue }) => {
+const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage }) => {
+  const [editInputValue, setEditInputValue] = useState("")
 
   const handleToggleComplete = (id) => {
 
@@ -11,6 +12,7 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage, inpu
       return item;
     });
     setTodoItems(updatedTodoItems);
+    setErrorMessage("");
   }
 
   const handleItemChecked = (id) => {
@@ -18,10 +20,12 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage, inpu
     setTodoItems(todoItems.map(item =>
       item.id === id ? { ...item, isChecked: !item.isChecked } : item
     ));
+    setErrorMessage("");
   }
 
   const handleDelete = ({ id }) => {
     setTodoItems(todoItems.filter(item => item.id !== id));
+    setErrorMessage("")
   }
 
   const handleMoveUp = (item) => {
@@ -33,6 +37,7 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage, inpu
       newArray[index - 1] = arrInd;
       setTodoItems(newArray);
     }
+    setErrorMessage("")
   }
 
   const handleMoveDown = (item) => {
@@ -44,41 +49,31 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage, inpu
       newArray[index + 1] = arrInd;
       setTodoItems(newArray);
     }
+    setErrorMessage("")
   }
 
-  const handleEditing = (item) => {
-    setTodoItems(todoItems.map(todo => {
-      if (todo.id === item.id) {
-        return { ...todo, editMode: !todo.editMode };
-      } else {
-        return todo;
+  const handleEditing = (item, index) => {
+    const updatedItems = todoItems.map((todo, todoIndex) => {
+      if (todoIndex === index) {
+        return { ...todo, editMode: true };
       }
-    }));
-  }
-  const handleSaveEditItem = (item) => {
-    
-    const trimmedValue = item.name.trim();
-    if (trimmedValue.length === 0) {
-      setErrorMessage("Task name cannot be empty.");
-      return;
-    }
-    if(trimmedValue === item.name) {
-      setErrorMessage("Cannot remember the same name");
-      return;
-    }
-    if(todoItems.some(todo => todo.name.trim() === trimmedValue)){
-      setErrorMessage("Account with this name already exists.");
-      return;
-    }else{
-      setTodoItems(todoItems.map(todo => {
-        if (todo.id === item.id) {
-          return {...todo, name: trimmedValue, editMode: !todo.editMode };
-        } else {
-          return todo;
-        }
-      }));
-    }
+      return { ...todo, editMode: false };
+    });
+    setTodoItems(updatedItems);
 
+  }
+
+
+  const handleSaveEditItem = (item) => {
+    if (item.name !== "") {
+      const updatedItems = todoItems.map((todo, index) => {
+        return todo === index ? { ...todo, editMode: true } : { ...todo, editMode: false };
+      });
+
+      setTodoItems(updatedItems);
+    } else {
+      setErrorMessage("The field cannot be empty.");
+    }
 
   }
 
@@ -108,7 +103,7 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage, inpu
     <div className="todo-list">
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
       <ul>
-        {todoItems.map((item) => (
+        {todoItems.map((item, index) => (
           <li className='list-item' key={item.id} style={{ textDecoration: item.isDone ? 'line-through' : 'none', color: item.isDone ? 'red' : 'black' }}>
             {item.editMode ? (
               <>
@@ -121,7 +116,7 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage, inpu
                 <input type='checkbox' checked={item.isChecked} onChange={() => handleItemChecked(item.id)} />
                 {item.name}
                 <button className='button-isComplete' onClick={() => handleToggleComplete(item.id)}>Complete</button>
-                <button className='button-delete' onClick={() => handleEditing(item)}>Edit</button>
+                <button className='button-delete' onClick={() => handleEditing(item, index)}>Edit</button>
                 <button className='button-up' onClick={() => handleMoveUp(item)}>Up</button>
                 <button className='button-down' onClick={() => handleMoveDown(item)}>Down</button>
                 <button className='button-edit' onClick={() => handleDelete(item)}>Delete</button>
