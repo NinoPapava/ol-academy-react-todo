@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage }) => {
+
   const [editInputValue, setEditInputValue] = useState("")
 
   const handleToggleComplete = (id) => {
@@ -53,49 +54,57 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage }) =>
   }
 
   const handleEditing = (item, index) => {
-    const updatedItems = todoItems.map((todo, todoIndex) => {
+    setTodoItems(todoItems.map((todo, todoIndex) => {
       if (todoIndex === index) {
         return { ...todo, editMode: true };
       }
       return { ...todo, editMode: false };
-    });
-    setTodoItems(updatedItems);
+    }));
+
+    setEditInputValue(item.name)
+    setErrorMessage("")
 
   }
 
 
   const handleSaveEditItem = (item) => {
-    if (item.name !== "") {
-      const updatedItems = todoItems.map((todo, index) => {
-        return todo === index ? { ...todo, editMode: true } : { ...todo, editMode: false };
-      });
 
-      setTodoItems(updatedItems);
-    } else {
-      setErrorMessage("The field cannot be empty.");
+    const isExistItem = todoItems.find(item => item.name === editInputValue)
+
+    if (item.name === editInputValue) {
+      handleCancelEdit(item)
+    }
+    if (editInputValue === "") {
+      setErrorMessage("The field cannot be empty.")
+    }
+    if (isExistItem && item.name !== editInputValue) {
+      setErrorMessage("Account with this name already exists.")
+    }
+    else {
+      const addEditTodos = todoItems.map((todo, todoIndex) => {
+        if (todo.id === item.id) {
+          return { ...todo, name: editInputValue, editMode: false };
+        }
+        return { ...todo, editMode: false };
+      })
+      setTodoItems(addEditTodos);
+      setEditInputValue("")
+      setErrorMessage("")
     }
 
   }
 
   const handleCancelEdit = (item) => {
-    setErrorMessage("");
     setTodoItems(todoItems.map(todo => {
       if (todo.id === item.id) {
-        todo.editMode = false;
+        return { ...todo, editMode: false };
       }
       return todo;
     }));
   }
 
-  const handleEditInputChange = (e, item) => {
-    setTodoItems(todoItems.map(todo => {
-      if (todo.id === item.id) {
-        return { ...todo, name: e.target.value };
-      } else {
-        return todo;
-      }
-    }));
-    setErrorMessage("");
+  const handleEditInputChange = (e) => {
+    setEditInputValue(e.target.value)
   };
 
 
@@ -107,7 +116,7 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage }) =>
           <li className='list-item' key={item.id} style={{ textDecoration: item.isDone ? 'line-through' : 'none', color: item.isDone ? 'red' : 'black' }}>
             {item.editMode ? (
               <>
-                <input type='text' value={item.name} className='list' onChange={(e) => handleEditInputChange(e, item)} />
+                <input type='text' value={editInputValue} className='list' onChange={handleEditInputChange} />
                 <button className='button-save' onClick={() => handleSaveEditItem(item)}>Save</button>
                 <button className='button-cancel' onClick={() => handleCancelEdit(item)}>Cancel</button>
               </>
