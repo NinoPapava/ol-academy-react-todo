@@ -1,14 +1,13 @@
 import { v4 as uuidv4 } from 'uuid';
 
 
-const AddTodo = ({ inputValue, setInputValue, todoItems, setTodoItems, errorMessage, setErrorMessage}) => {
+const AddTodo = ({ inputValue, setInputValue, todoItems, setTodoItems, errorMessage, setErrorMessage }) => {
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   }
 
   const handleSubmitTodo = () => {
-
     if (inputValue.trim() === "") {
       setErrorMessage("The field cannot be empty.");
       return;
