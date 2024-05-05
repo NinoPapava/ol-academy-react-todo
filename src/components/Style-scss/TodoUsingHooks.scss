@@ -7,17 +7,33 @@ $border-color: #ccc;
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
+  padding-top: 30px;
+  background-color: #dfdbdb;
 }
 
 .todo-wrapper {
-  max-width: 600px;
+  max-width: 500px;
   margin: 0 auto;
   padding: 20px;
 
   h1 {
     text-align: center;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     margin-bottom: 20px;
+    color: #235f32;
+  }
+
+  button {
+    padding: 8px 16px;
+    margin-left: 15px;
+    margin-top: 7px;
+    background-color: rgb(168, 81, 81);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: rgb(211, 25, 25);
   }
 }
 
@@ -26,9 +42,10 @@ body {
 
   input[type="text"] {
     padding: 8px;
-    width: 70%;
+    width: 80%;
     margin-right: 10px;
     border: 1px solid $border-color;
+    border-radius: 8px;
   }
 
   button {
@@ -36,6 +53,7 @@ body {
     background-color: $primary-color;
     color: white;
     border: none;
+    border-radius: 8px;
     cursor: pointer;
 
     &:hover {
@@ -45,8 +63,9 @@ body {
 }
 
 .todo-list {
-  border: 1px solid $border-color;
+  border: 1px solid rgb(138, 129, 129);
   padding: 10px;
+  border-radius: 8px;
 
   ul {
     list-style-type: none;
@@ -57,17 +76,27 @@ body {
     margin-bottom: 10px;
   }
 
-  button {
+  .button-success {
     padding: 4px 8px;
-    margin-left: 5px;
-    background-color: $secondary-color;
+    margin-left: 10px;
+    background-color: rgb(84, 143, 79);
     color: white;
     border: none;
     cursor: pointer;
 
     &:hover {
-      background-color: $secondary-hover-color;
+      background-color: rgb(92, 184, 92);
     }
+
+  }
+
+  .button-context{
+    padding: 4px 8px;
+    margin-left: 10px;
+    background-color: rgb(194, 68, 68);
+    color: white;
+    border: none;
+    cursor: pointer;
   }
 }
 

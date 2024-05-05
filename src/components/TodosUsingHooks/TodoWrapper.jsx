@@ -24,7 +24,7 @@ const TodoWrapper = () => {
 
   return (
     <div className="todo-wrapper">
-    <h1>Ol Academy Todo List</h1>
+      <h1>Todo List</h1>
       <AddTodo
         inputValue={inputValue}
         setInputValue={setInputValue}
@@ -38,7 +38,7 @@ const TodoWrapper = () => {
         setTodoItems={setTodoItems}
         setErrorMessage={setErrorMessage}
       />
-      <button className='button-deleteComplete' onClick={handleDeleteCompleteItems} >Delete Complete Items</button>
+      <button className='button-deleteComplete' onClick={handleDeleteCompleteItems} >Delete Done Items</button>
       <button className='button-deleteChecked' onClick={handleDeleteCheckedItems} >Delete Checked Items</button>
       <button className='button-deleteAll' onClick={handleDeleteAll} >Delete All </button>
     </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage }) => {
-  
+
   const [editInputValue, setEditInputValue] = useState("")
 
 
@@ -29,7 +29,7 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage }) =>
   const handleMove = (item, direction) => {
     const index = todoItems.findIndex(todo => todo.id === item.id);
     if ((direction === "up" && index > 0) ||
-        (direction === "down" && index < todoItems.length - 1)) {
+      (direction === "down" && index < todoItems.length - 1)) {
       const directionModeForUpDown = direction === "up" ? -1 : 1;
       const newArray = [...todoItems];
       const arrIndex = newArray[index];
@@ -42,8 +42,8 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage }) =>
 
 
   const handleEditing = (item, index) => {
-    setTodoItems(todoItems.map((todo, todoIndex) => 
-    ({ ...todo, editMode: todoIndex === index  })
+    setTodoItems(todoItems.map((todo, todoIndex) =>
+      ({ ...todo, editMode: todoIndex === index })
     ));
     setEditInputValue(item.name)
     setErrorMessage("")
@@ -72,7 +72,7 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage }) =>
 
 
   const handleCancelEdit = (item) => {
-    setTodoItems(todoItems.map(todo => 
+    setTodoItems(todoItems.map(todo =>
       todo.id === item.id ? { ...todo, editMode: false } : todo
     ));
   }
@@ -91,18 +91,18 @@ const TodoList = ({ todoItems, setTodoItems, errorMessage, setErrorMessage }) =>
             {item.editMode ? (
               <>
                 <input type='text' value={editInputValue} className='list' onChange={handleEditInputChange} />
-                <button className='button-save' onClick={() => handleSaveEditItem(item)}>Save</button>
-                <button className='button-cancel' onClick={() => handleCancelEdit(item)}>Cancel</button>
+                <button className='button-success' onClick={() => handleSaveEditItem(item)}>Save</button>
+                <button className='button-context' onClick={() => handleCancelEdit(item)}>Cancel</button>
               </>
             ) : (
               <>
                 <input type='checkbox' checked={item.isChecked} onChange={() => handleItemChecked(item.id)} />
-                {item.name}
-                <button className='button-isComplete' onClick={() => handleToggleComplete(item.id)}>Complete</button>
-                <button className='button-delete' onClick={() => handleEditing(item, index)}>Edit</button>
-                <button className='button-up' onClick={() => handleMove(item, "up")}>Up</button>
-                <button className='button-down' onClick={() => handleMove(item, "down")}>Down</button>
-                <button className='button-edit' onClick={() => handleDelete(item)}>Delete</button>
+                { item.name}
+                <button className='button-success' onClick={() => handleToggleComplete(item.id)}>{item.isDone ? 'Is Done' : 'Not Done'}</button>
+                <button className='button-success' onClick={() => handleEditing(item, index)}>Edit</button>
+                <button className='button-success' onClick={() => handleMove(item, "up")}>Up</button>
+                <button className='button-success' onClick={() => handleMove(item, "down")}>Down</button>
+                <button className='button-context' onClick={() => handleDelete(item)}>Delete</button>
               </>
             )}
           </li>
